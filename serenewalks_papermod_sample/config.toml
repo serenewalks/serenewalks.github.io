@@ -1,0 +1,21 @@
+baseURL = "https://serenewalks.github.io/"
+title = "Serene Walks"
+theme = "PaperMod"
+languageCode = "ko"
+paginate = 10
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+[params]
+  defaultTheme = "auto"
+  ShowShareButtons = true
+  ShowReadingTime = true
+  ShowPostNavLinks = true
+
+[menu]
+  [[menu.main]]
+    identifier = "posts"
+    name = "Posts"
+    url = "/posts/"
+    weight = 1
