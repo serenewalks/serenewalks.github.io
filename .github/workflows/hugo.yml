@@ -1,15 +1,28 @@
-baseURL = "https://serenewalks.github.io/"
-title = "Serene Walks"
-languageCode = "ko"
-paginate = 10
+name: Deploy Hugo site to Pages
 
-# 테마 명시
-theme = "PaperMod"
+on:
+  push:
+    branches:
+      - main  # 또는 master
 
-# 모듈로 PaperMod 불러오기(로컬에 테마 업로드 안 해도 됨)
-[module]
-  [[module.imports]]
-    path = "github.com/adityatelange/hugo-PaperMod"
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
-[outputs]
-  home = ["HTML", "RSS", "JSON"]
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: 'latest'
+          extended: true
+
+      - name: Build
+        run: hugo --minify
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
